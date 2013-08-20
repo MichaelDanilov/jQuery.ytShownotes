@@ -1,5 +1,5 @@
 /*
-* jQuery ytShownotes Plugin 0.1.0
+* jQuery ytShownotes Plugin 0.2.0
 * https://github.com/MichaelDanilov/jQuery.ytShownotes
 *
 * Copyright 2013, Michael Danilov
@@ -26,6 +26,7 @@ var constants = {
 		// endTime: '60',
 		playerWidth: '640',
 		playerHeight: '360',
+		caption: '',
 	}
 };
 
@@ -73,6 +74,36 @@ var methods = {
 			}
 			methods.addPlayer($.extend(true, data, params));
 		});
+	},
+	getHTML:function(list, tag = 'div', tagClass = 'ytShownotes', safe = false) {
+		if (tag === undefined) {
+			tag = 'div';
+		};
+		if (tagClass === undefined) {
+			tagClass = 'ytShownotes';
+		} else {
+			tagClass = tagClass.replace(/( )+/gi,' ');
+		}
+		var html = '';
+		for (var i = 0; i < list.length; i++) {
+			html += '<' + tag + ' class="' + tagClass + '"';
+			if (list[i].ytVideo.videoID !== undefined) {
+				html += ' data-ytvideoid="' + list[i].ytVideo.videoID + '"';
+			};
+			if (list[i].ytVideo.startTime !== undefined) {
+				html += ' data-ytstarttime="' + list[i].ytVideo.startTime + '"';
+			};
+			if (list[i].ytVideo.endTime !== undefined) {
+				html += ' data-ytendtime="' + list[i].ytVideo.endTime + '"';
+			};
+			html += '>' + list[i].ytVideo.caption;
+			html += '</' + tag + '>\n';
+		}
+		if (safe) {
+			html = html.replace('<', '&lt;', 'gi');
+			html = html.replace('>', '&gt;', 'gi');
+		};
+		return html;
 	}
 };
 
@@ -84,6 +115,8 @@ var methods = {
 			return methods.click.apply( this, arguments );
 		} else if ( typeof method === 'object') {
 			return methods.addPlayer.apply( this, arguments );
+		} else if ( typeof method === 'array') {
+			return methods.getHTML.apply( this, arguments );
 		} else {
 			$.error( 'Method "' +  method + '" is not exist in jQuery.ytShownotes plugin.' );
 		}
