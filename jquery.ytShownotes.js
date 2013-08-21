@@ -1,5 +1,5 @@
 /*
-* jQuery ytShownotes Plugin 0.2.0
+* jQuery ytShownotes Plugin 0.3.0
 * https://github.com/MichaelDanilov/jQuery.ytShownotes
 *
 * Copyright 2013, Michael Danilov
@@ -70,6 +70,8 @@ var methods = {
 					videoID: $(this).data('ytvideoid'),
 					startTime: $(this).data('ytstarttime'),
 					endTime: $(this).data('ytendtime'),
+					playerWidth: $(this).data('ytplayerwidth'),
+					playerHeight: $(this).data('ytplayerheight')
 				}
 			}
 			methods.addPlayer($.extend(true, data, params));
@@ -95,6 +97,12 @@ var methods = {
 			};
 			if (list[i].ytVideo.endTime !== undefined) {
 				html += ' data-ytendtime="' + list[i].ytVideo.endTime + '"';
+			};
+			if (list[i].ytVideo.playerWidth !== undefined) {
+				html += ' data-ytplayerwidth="' + list[i].ytVideo.playerWidth + '"';
+			};
+			if (list[i].ytVideo.playerHeight !== undefined) {
+				html += ' data-ytplayerheight="' + list[i].ytVideo.playerHeight + '"';
 			};
 			html += '>' + list[i].ytVideo.caption;
 			html += '</' + tag + '>\n';
