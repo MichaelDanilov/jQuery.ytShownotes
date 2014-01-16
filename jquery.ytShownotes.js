@@ -1,5 +1,5 @@
 /*
-* jQuery ytShownotes Plugin 0.4.1
+* jQuery ytShownotes Plugin 0.4.2
 * https://github.com/MichaelDanilov/jQuery.ytShownotes
 *
 * Copyright 2013-2014, Michael Danilov
@@ -85,6 +85,8 @@
 			var list = arguments[0], tag, tagClass, safe = false;
 			if (arguments[1] === undefined) {
 				tag = 'div';
+			} else {
+				tag = arguments[1];
 			};
 			if (arguments[2] === undefined) {
 				tagClass = 'ytShownotes';
